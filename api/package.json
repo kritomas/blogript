@@ -1,0 +1,15 @@
+{
+  "name": "blogript-api",
+  "version": "1.0.0",
+  "description": "Blogript API",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kritomas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
