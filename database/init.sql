@@ -4,4 +4,4 @@ create table Post
 	creation_date date not null default now(),
 	author varchar(32) not null,
 	content varchar(4096)
-)
+);
