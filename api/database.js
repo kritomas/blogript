@@ -22,6 +22,12 @@ export async function createPost(author, content)
 }
 export async function removePost(id)
 {
-	const result = await pool.query("delete from Post where id = ?", [id]);
+	const result = await pool.query("delete from Post where id = ?;", [id]);
 	return result[0].affectedRows;
+}
+export async function updatePost(id, author, content)
+{
+	const result = await pool.query("update Post set author=?, content=? where id=?;", [author, content, id]);
+	if (result[0].affectedRows <= 0) return undefined;
+	return await getPost(id);
 }
