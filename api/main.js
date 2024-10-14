@@ -5,55 +5,89 @@ import {getAllPosts, getPost, createPost, removePost, updatePost} from "./databa
 const port = 42069;
 const api = express();
 
-api.use(express.json())
+api.use(express.json());
 
 api.get("/status", (req, res) =>
 {
 	res.status(200).send("It's alive!");
 });
 
-api.get("/blog", async (req, res) =>
+api.get("/blog", async (req, res, next) =>
 {
-	const posts = await getAllPosts();
-	res.status(200).send(posts);
+	try
+	{
+		const posts = await getAllPosts();
+		res.status(200).send(posts);
+	}
+	catch (e)
+	{
+		next(e);
+	}
 });
-api.get("/blog/:id", async (req, res) =>
+api.get("/blog/:id", async (req, res, next) =>
 {
-	const id = req.params.id;
-	const post = await getPost(id);
-	if (post === undefined) res.status(404).send("Not found");
-	else res.status(200).send(post);
+	try
+	{
+		const id = req.params.id;
+		const post = await getPost(id);
+		if (post === undefined) res.status(404).send("Not found");
+		else res.status(200).send(post);
+	}
+	catch (e)
+	{
+		next(e);
+	}
 });
 
-api.post("/blog", async (req, res) =>
+api.post("/blog", async (req, res, next) =>
 {
-	const {author, content} = req.body;
-	const post = await createPost(author, content);
-	if (post === undefined) res.status(404).send("Not found");
-	else res.status(200).send(posts);
-	res.status(201).send(post);
+	try
+	{
+		const {author, content} = req.body;
+		const post = await createPost(author, content);
+		if (post === undefined) res.status(404).send("Not found");
+		else res.status(201).send(post);
+	}
+	catch (e)
+	{
+		next(e);
+	}
 })
 
-api.delete("/blog/:id", async (req, res) =>
+api.delete("/blog/:id", async (req, res, next) =>
 {
-	const id = req.params.id;
-	const affected = await removePost(id);
-	if (affected > 0) res.status(200).send("");
-	else res.status(404).send("Not found");
+	try
+	{
+		const id = req.params.id;
+		const affected = await removePost(id);
+		if (affected > 0) res.status(200).send("");
+		else res.status(404).send("Not found");
+	}
+	catch (e)
+	{
+		next(e);
+	}
 });
-api.patch("/blog/:id", async (req, res) =>
+api.patch("/blog/:id", async (req, res, next) =>
 {
-	const id = req.params.id;
-	const {author, content} = req.body;
-	const post = await updatePost(id, author, content);
-	if (post === undefined) res.status(404).send("Not found");
-	else res.status(200).send(post);
+	try
+	{
+		const id = req.params.id;
+		const {author, content} = req.body;
+		const post = await updatePost(id, author, content);
+		if (post === undefined) res.status(404).send("Not found");
+		else res.status(200).send(post);
+	}
+	catch (e)
+	{
+		next(e);
+	}
 });
 
 api.use((err, req, res, next) =>
 {
 	console.error(err.stack);
-	res.status(500).send("It's borked");
+	res.status(500).send(err);
 });
 
 api.listen(port, () =>
