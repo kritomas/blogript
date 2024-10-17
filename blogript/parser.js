@@ -3,7 +3,8 @@ function parseByJson(post)
 	result = "<div class=\"post\">";
 	result += "<p><b>" + post.author + "</b> has posted (id " + post.id + ") at " + post.creation_date + ":</p>";
 	result += "<p>" + post.content + "</p>";
-	result += "<a href=\"/edit?postid=" + post.id + "\">Edit</a>";
+	result += "<a href=\"/edit?postid=" + post.id + "\">Edit</a> ";
+	result += "<a href=\"/remove?postid=" + post.id + "\">Remove</a>";
 	result += "</div>"
 	return result;
 }
