@@ -1,6 +1,6 @@
 const form = document.getElementById("new-post-form");
 
-form.addEventListener("submit", (event) =>
+form.addEventListener("submit", async (event) =>
 {
 	event.preventDefault();
 
@@ -9,13 +9,20 @@ form.addEventListener("submit", (event) =>
 
 	const urlParams = new URL(window.location.toLocaleString()).searchParams;
 
-	fetch("/api/blog/" + urlParams.get("postid"),
+	try
 	{
-		method: "PATCH",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(data)
-	}).then(() =>
-	{
+		response = await fetch("/api/blog/" + urlParams.get("postid"),
+		{
+			method: "PATCH",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data)
+		});
+		if (response.status / 100 !== 2) throw response;
 		window.location.replace("/");
-	});
+	}
+	catch (error)
+	{
+		window.location.replace("/error");
+		throw error;
+	}
 });

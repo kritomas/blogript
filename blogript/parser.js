@@ -10,24 +10,42 @@ function parseByJson(post)
 }
 async function parseById(id)
 {
-	const response = fetch("/api/blog/" + id);
-	const data = response.json();
-	result = "<div class=\"post-space\">";
-	result += parseByJson(p);
-	result += "</div>";
-	return result;
+	try
+	{
+		const response = await fetch("/api/blog/" + id);
+		if (response.status / 100 !== 2) throw response;
+		const data = await response.json();
+		result = "<div class=\"post-space\">";
+		result += parseByJson(p);
+		result += "</div>";
+		return result;
+	}
+	catch (error)
+	{
+		window.location.replace("/error");
+		throw error;
+	}
 }
 async function parseAll()
 {
-	const response = await fetch("/api/blog");
-	const data = await response.json();
-	result = "<div class=\"post-space\">";
-	data.forEach((item, i) =>
+	try
 	{
-		result += parseByJson(item);
-	});
-	result += "</div>";
-	return result;
+		const response = await fetch("/api/blog");
+		if (response.status / 100 !== 2) throw response;
+		const data = await response.json();
+		result = "<div class=\"post-space\">";
+		data.forEach((item, i) =>
+		{
+			result += parseByJson(item);
+		});
+		result += "</div>";
+		return result;
+	}
+	catch (error)
+	{
+		window.location.replace("/error");
+		throw error;
+	}
 }
 
 async function insertIntoDOM()
