@@ -6,13 +6,13 @@ const pool = mysql.createPool(JSON.parse(fs.readFileSync("sql_credentials.json",
 
 export async function getAllPosts()
 {
-	const result = await pool.query("select id, author, content, creation_date from Post;");
+	const result = await pool.query("select Post.id, username, content, creation_date from Post inner join User on User.id = Post.User_id;");
 	const rows = result[0];
 	return rows;
 }
 export async function getPost(id)
 {
-	const result = await pool.query("select id, author, content, creation_date from Post where id = ?;", [id]);
+	const result = await pool.query("select Post.id, username, content, creation_date from Post inner join User on User.id = Post.User_id where Post.id = ?;", [id]);
 	const rows = result[0];
 	return rows[0];
 }
