@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 
 import {getAllPosts, getPost, createPost, removePost, updatePost} from "./database.js";
 
@@ -6,6 +7,18 @@ const port = 42069;
 const api = express();
 
 api.use(express.json());
+api.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+
+function promptAuth(req, res)
+{
+	if (!req.session.userid)
+	{
+		console.log("Redirecting to login");
+		res.writeHead(301, { Location: "/login" }).end();
+		return true;
+	}
+	return false;
+}
 
 api.get("/status", (req, res) =>
 {
@@ -41,6 +54,7 @@ api.get("/blog/:id", async (req, res, next) =>
 
 api.post("/blog", async (req, res, next) =>
 {
+	if (promptAuth(req, res)) return;
 	try
 	{
 		const {author, content} = req.body;
@@ -56,6 +70,7 @@ api.post("/blog", async (req, res, next) =>
 
 api.delete("/blog/:id", async (req, res, next) =>
 {
+	if (promptAuth(req, res)) return;
 	try
 	{
 		const id = req.params.id;
@@ -70,6 +85,7 @@ api.delete("/blog/:id", async (req, res, next) =>
 });
 api.patch("/blog/:id", async (req, res, next) =>
 {
+	if (promptAuth(req, res)) return;
 	try
 	{
 		const id = req.params.id;
