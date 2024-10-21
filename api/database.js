@@ -16,19 +16,19 @@ export async function getPost(id)
 	const rows = result[0];
 	return rows[0];
 }
-export async function createPost(author, content)
+export async function createPost(author_id, content)
 {
-	const result = await pool.query("insert into Post (author, content) values (?, ?);", [author, content]);
+	const result = await pool.query("insert into Post (User_id, content) values (?, ?);", [author_id, content]);
 	return await getPost(result[0].insertId);
 }
-export async function removePost(id)
+export async function removePost(author_id, id)
 {
-	const result = await pool.query("delete from Post where id = ?;", [id]);
+	const result = await pool.query("delete from Post where id = ? and User_id = ?;", [id, author_id]);
 	return result[0].affectedRows;
 }
-export async function updatePost(id, author, content)
+export async function updatePost(id, author_id, content)
 {
-	const result = await pool.query("update Post set author=?, content=? where id=?;", [author, content, id]);
+	const result = await pool.query("update Post set content=? where id=? and User_id=?;", [content, id, author_id]);
 	if (result[0].affectedRows <= 0) return undefined;
 	return await getPost(id);
 }
