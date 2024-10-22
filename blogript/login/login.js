@@ -16,7 +16,8 @@ form.addEventListener("submit", async (event) =>
 			body: JSON.stringify(data)
 		});
 		if (!response.ok) throw response;
-		sessionStorage.userid = response.id;
+		const body = await response.json();
+		sessionStorage.userid = body.id;
 		window.location.replace("/");
 	}
 	catch (error)

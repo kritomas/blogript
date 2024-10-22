@@ -46,8 +46,8 @@ api.post("/blog", async (req, res, next) =>
 {
 	try
 	{
-		const {author_id, content} = req.body;
-		const post = await createPost(author_id, content);
+		const {user_id, content} = req.body;
+		const post = await createPost(user_id, content);
 		if (post === undefined) res.status(404).send("Not found");
 		else res.status(201).send(post);
 	}
@@ -61,8 +61,8 @@ api.delete("/blog/:id", async (req, res, next) =>
 {
 	try
 	{
-		const { author_id, id } = req.params;
-		const affected = await removePost(author_id, id);
+		const { user_id, id } = req.params;
+		const affected = await removePost(user_id, id);
 		if (affected > 0) res.status(200).send("");
 		else res.status(404).send("Not found");
 	}
@@ -77,8 +77,8 @@ api.patch("/blog/:id", async (req, res, next) =>
 	try
 	{
 		const id = req.params.id;
-		const {author, content} = req.body;
-		const post = await updatePost(id, author, content);
+		const {user_id, content} = req.body;
+		const post = await updatePost(id, user_id, content);
 		if (post === undefined) res.status(404).send("Not found");
 		else res.status(200).send(post);
 	}
