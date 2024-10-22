@@ -88,6 +88,20 @@ api.patch("/blog/:id", async (req, res, next) =>
 	}
 });
 
+api.get("/user", async (req, res, next) =>
+{
+	try
+	{
+		const {username, password} = req.body;
+		const user = await getUser(username, password);
+		if (user === undefined) res.status(404).send("Not found");
+		else res.status(200).send(user);
+	}
+	catch (e)
+	{
+		next(e);
+	}
+});
 api.put("/user", async (req, res, next) =>
 {
 	try
