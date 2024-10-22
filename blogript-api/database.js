@@ -38,7 +38,7 @@ export async function getUser(username, password)
 	let result = await pool.query("select password_hash from User where username = ?;", [username]);
 	if (result[0].length <= 0) return undefined;
 	const password_hash = result[0][0]["password_hash"];
-	if (!bcrypt.compare(password, password_hash))
+	if (!await bcrypt.compare(password, password_hash))
 	{
 		return undefined;
 	}

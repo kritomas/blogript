@@ -1,7 +1,8 @@
 import express from "express";
 import session from "express-session";
 
-import {getAllPosts, getPost, createPost, removePost, updatePost} from "./database.js";
+import {getAllPosts, getPost, createPost, removePost, updatePost,
+		createUser, removeUser, getUser} from "./database.js";
 
 const port = 42069;
 const api = express();
@@ -93,7 +94,7 @@ api.get("/user", async (req, res, next) =>
 	{
 		const {username, password} = req.body;
 		const user = await getUser(username, password);
-		if (post === undefined) res.status(404).send("Not found");
+		if (user === undefined) res.status(404).send("Not found");
 		else res.status(200).send(user);
 	}
 	catch (e)
