@@ -15,7 +15,7 @@ form.addEventListener("submit", async (event) =>
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data)
 		});
-		if (response.status / 100 !== 2) throw response;
+		if (response.ok) throw response;
 		window.location.replace("/");
 	}
 	catch (error)

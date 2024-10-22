@@ -88,7 +88,7 @@ api.patch("/blog/:id", async (req, res, next) =>
 	}
 });
 
-api.get("/user", async (req, res, next) =>
+api.put("/user", async (req, res, next) =>
 {
 	try
 	{

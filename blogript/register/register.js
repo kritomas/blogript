@@ -1,4 +1,4 @@
-const form = document.getElementById("new-post-form");
+const form = document.getElementById("register-form");
 
 form.addEventListener("submit", async (event) =>
 {
@@ -7,17 +7,16 @@ form.addEventListener("submit", async (event) =>
 	const formData = new FormData(form);
 	const data = Object.fromEntries(formData.entries());
 
-	const urlParams = new URL(window.location.toLocaleString()).searchParams;
-
 	try
 	{
-		response = await fetch("/api/blog/" + urlParams.get("postid"),
+		response = await fetch("/api/user",
 		{
-			method: "PATCH",
+			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data)
 		});
 		if (!response.ok) throw response;
+		sessionStorage.userid = response.id;
 		window.location.replace("/");
 	}
 	catch (error)

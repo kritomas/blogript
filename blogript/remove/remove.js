@@ -12,7 +12,7 @@ form.addEventListener("submit", async (event) =>
 		{
 			method: "DELETE"
 		});
-		if (response.status / 100 !== 2) throw response;
+		if (!response.ok) throw response;
 		window.location.replace("/");
 	}
 	catch (error)

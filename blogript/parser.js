@@ -13,7 +13,7 @@ async function parseById(id)
 	try
 	{
 		const response = await fetch("/api/blog/" + id);
-		if (response.status / 100 !== 2) throw response;
+		if (!response.ok) throw response;
 		const data = await response.json();
 		result = "<div class=\"post-space\">";
 		result += parseByJson(p);
@@ -31,7 +31,7 @@ async function parseAll()
 	try
 	{
 		const response = await fetch("/api/blog");
-		if (response.status / 100 !== 2) throw response;
+		if (!response.ok) throw response;
 		const data = await response.json();
 		result = "<div class=\"post-space\">";
 		data.forEach((item, i) =>
