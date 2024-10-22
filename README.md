@@ -16,14 +16,10 @@ A blog server thingy.
 
 1.	Copy all of `blogript` into `/var`.
 
-## API
-
-1.	Install API modules by invoking `npm i` in `api`.
-
-## Database
+# Database
 
 1. In your MySQL server, create a databse and invoke `database/init.sql`.
-2. Create file `api/sql_credentials.json` with the following format:
+2. Create file `blogript-api/sql_credentials.json` with the following format:
 
 ```json
 {
@@ -33,3 +29,9 @@ A blog server thingy.
 	"database": "[your database name here]"
 }
 ```
+
+## API
+
+1.	Install API modules by invoking `npm i` in `blogript-api`.
+2.	Copy all of `blogript-api` into `/var`.
+3.	Copy `blogript-api.service` into `/etc/systemd/system`.

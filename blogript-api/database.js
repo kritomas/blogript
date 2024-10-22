@@ -2,7 +2,7 @@ import fs from "fs";
 import mysql from "mysql2";
 import bcrypt from "bcrypt";
 
-const pool = mysql.createPool(JSON.parse(fs.readFileSync("sql_credentials.json", "utf8"))).promise();
+const pool = mysql.createPool(JSON.parse(fs.readFileSync("/var/blogript-api/sql_credentials.json", "utf8"))).promise();
 
 export async function getAllPosts()
 {

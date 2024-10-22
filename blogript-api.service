@@ -1,0 +1,9 @@
+[Unit]
+Description=Blogript API Service
+
+[Service]
+Type=simple
+ExecStart=/var/blogript-api/start-api.sh
+
+[Install]
+WantedBy=multi-user.target
