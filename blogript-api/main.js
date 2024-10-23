@@ -61,7 +61,8 @@ api.delete("/blog/:id", async (req, res, next) =>
 {
 	try
 	{
-		const { user_id, id } = req.params;
+		const { id }= req.params;
+		const { user_id }= req.body;
 		const affected = await removePost(user_id, id);
 		if (affected > 0) res.status(200).send("");
 		else res.status(404).send("Not found");
