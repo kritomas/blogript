@@ -30,6 +30,39 @@ paths:
       responses:
         '201':
           description: Post created successfully
+  /blog/[id]:
+    get:
+      summary: Get post with specified id
+      responses:
+        '200':
+          description: The post with specified id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+
+    delete:
+      summary: Delete a post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BareUserID'
+      responses:
+        '200':
+          description: Post deleted successfully
+    patch:
+      summary: Update a post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Posting'
+      responses:
+        '200':
+          description: Post updated successfully
 
 components:
   schemas:
@@ -51,3 +84,8 @@ components:
           type: UUID
         content:
           type: string
+    BareUserID:
+      type: object
+      properties:
+        user_id:
+          type: UUID
