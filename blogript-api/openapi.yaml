@@ -63,6 +63,56 @@ paths:
       responses:
         '200':
           description: Post updated successfully
+  /user:
+    get:
+      summary: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: UserID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BareUserID'
+    put:
+      summary: Login (same as GET)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: UserID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BareUserID'
+
+    post:
+      summary: Register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BareUserID'
 
 components:
   schemas:
@@ -89,3 +139,10 @@ components:
       properties:
         user_id:
           type: UUID
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string

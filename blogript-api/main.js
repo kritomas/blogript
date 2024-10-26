@@ -138,7 +138,7 @@ api.post("/user", async (req, res, next) =>
 	}
 })
 
-api.delete("/user", async (req, res, next) =>
+/*api.delete("/user", async (req, res, next) =>
 {
 	try
 	{
@@ -151,7 +151,7 @@ api.delete("/user", async (req, res, next) =>
 	{
 		next(e);
 	}
-});
+});*/
 
 api.use((err, req, res, next) =>
 {
