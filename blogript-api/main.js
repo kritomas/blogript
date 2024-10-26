@@ -1,14 +1,19 @@
 import express from "express";
 import session from "express-session";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
 
 import {getAllPosts, getPost, createPost, removePost, updatePost,
 		createUser, removeUser, getUser} from "./database.js";
+
+const docYaml = YAML.load("/var/blogript-api/openapi.yaml");
 
 const port = 42069;
 const api = express();
 
 api.use(express.json());
-api.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+api.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
+api.use("/about", swaggerUi.serve, swaggerUi.setup(docYaml));
 
 api.get("/status", (req, res) =>
 {
