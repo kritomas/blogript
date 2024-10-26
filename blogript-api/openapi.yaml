@@ -7,6 +7,13 @@ info:
   #- url:
 
 paths:
+  /status:
+    get:
+      summary: Whether the API is online or not
+      responses:
+        '200':
+          description: The API server is online
+
   /blog:
     get:
       summary: Get all posts
