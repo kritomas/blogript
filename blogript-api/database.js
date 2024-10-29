@@ -23,12 +23,12 @@ export async function createPost(author_id, content)
 }
 export async function removePost(author_id, id)
 {
-	const result = await pool.query("delete from Post where id = ? and User_id = ?;", [id, author_id]);
+	const result = await pool.query("delete Post from Post inner join User on Post.user_id = User.id where Post.id = ? and (Post.User_id = ? or (select is_admin from User where id=?));", [id, author_id, author_id]);
 	return result[0].affectedRows;
 }
 export async function updatePost(id, author_id, content)
 {
-	const result = await pool.query("update Post set content=? where id=? and User_id=?;", [content, id, author_id]);
+	const result = await pool.query("update Post inner join User on Post.user_id = User.id set Post.content=? where Post.id=? and (Post.User_id=? or (select is_admin from User where id=?));", [content, id, author_id, author_id]);
 	if (result[0].affectedRows <= 0) return undefined;
 	return await getPost(id);
 }
