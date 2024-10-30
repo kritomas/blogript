@@ -157,7 +157,7 @@ api.post("/blacklist", async (req, res, next) =>
 	{
 		const { username, post_id, user_id } = req.body;
 		const affected = await createBlacklist(username, post_id, user_id);
-		if (affected > 0) res.status(200).send("");
+		if (affected > 0) res.status(201).send("");
 		else res.status(404).send("Not found");
 	}
 	catch (e)
