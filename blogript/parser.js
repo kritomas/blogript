@@ -6,6 +6,7 @@ function parseByJson(post)
 	result += "<a href=\"/edit?postid=" + post.id + "\">Edit</a> ";
 	result += "<a href=\"/remove?postid=" + post.id + "\">Remove</a>";
 	result += "<a href=\"/addblacklist?postid=" + post.id + "\">Blacklist Users</a>";
+	result += "<a href=\"/removeblacklist?postid=" + post.id + "\">Unblacklist Users</a>";
 	result += "</div>"
 	return result;
 }
