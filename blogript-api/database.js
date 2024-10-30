@@ -42,7 +42,7 @@ export async function getUser(username, password)
 	{
 		return undefined;
 	}
-	result = await pool.query("select id from User where username = ?;", [username]);
+	result = await pool.query("select id, username from User where username = ?;", [username]);
 	const rows = result[0];
 	return rows[0];
 }
