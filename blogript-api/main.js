@@ -25,7 +25,19 @@ api.get("/blog", async (req, res, next) =>
 {
 	try
 	{
-		const posts = await getAllPosts();
+		const posts = await getAllPosts(req.body.user_id);
+		res.status(200).send(posts);
+	}
+	catch (e)
+	{
+		next(e);
+	}
+});
+api.put("/blog", async (req, res, next) =>
+{
+	try
+	{
+		const posts = await getAllPosts(req.body.user_id);
 		res.status(200).send(posts);
 	}
 	catch (e)

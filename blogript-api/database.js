@@ -4,9 +4,9 @@ import bcrypt from "bcrypt";
 
 const pool = mysql.createPool(JSON.parse(fs.readFileSync("/var/blogript-api/sql_credentials.json", "utf8"))).promise();
 
-export async function getAllPosts()
+export async function getAllPosts(user_id)
 {
-	const result = await pool.query("select Post.id, username as author, content, creation_date from Post inner join User on User.id = Post.User_id;");
+	const result = await pool.query("select Post.id, username as author, content, creation_date from Post inner join User on User.id = Post.User_id left join Blacklist on Post.id = Blacklist.Post_id and Blacklist.User_id = ? where Blacklist.id is null or Post.User_id = ?;", [user_id, user_id]);
 	const rows = result[0];
 	return rows;
 }
