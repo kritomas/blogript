@@ -4,7 +4,8 @@ import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
 import {getAllPosts, getPost, createPost, removePost, updatePost,
-		createUser, removeUser, getUser} from "./database.js";
+		createUser, removeUser, getUser,
+		createBlacklist, removeBlacklist} from "./database.js";
 
 const docYaml = YAML.load("/var/blogript-api/openapi.yaml");
 
@@ -136,7 +137,37 @@ api.post("/user", async (req, res, next) =>
 	{
 		next(e);
 	}
+});
+
+api.post("/blacklist", async (req, res, next) =>
+{
+	try
+	{
+		const { username, post_id, user_id } = req.body;
+		const affected = await createBlacklist(username, post_id, user_id);
+		if (affected > 0) res.status(200).send("");
+		else res.status(404).send("Not found");
+	}
+	catch (e)
+	{
+		next(e);
+	}
 })
+
+api.delete("/blacklist", async (req, res, next) =>
+{
+	try
+	{
+		const { username, post_id, user_id } = req.body;
+		const affected = await removeBlacklist(username, post_id, user_id);
+		if (affected > 0) res.status(200).send("");
+		else res.status(404).send("Not found");
+	}
+	catch (e)
+	{
+		next(e);
+	}
+});
 
 /*api.delete("/user", async (req, res, next) =>
 {
