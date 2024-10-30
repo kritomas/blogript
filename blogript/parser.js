@@ -30,9 +30,19 @@ async function parseById(id)
 }
 async function parseAll()
 {
+	if (sessionStorage.userid === undefined)
+	{
+		window.location.replace("/login");
+		return;
+	}
 	try
 	{
-		const response = await fetch("/api/blog");
+		const response = await fetch("/api/blog",
+		{
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ user_id: sessionStorage.userid })
+		});
 		if (!response.ok) throw response;
 		const data = await response.json();
 		result = "<div class=\"post-space\">";
