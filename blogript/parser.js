@@ -5,6 +5,7 @@ function parseByJson(post)
 	result += "<p>" + post.content + "</p>";
 	result += "<a href=\"/edit?postid=" + post.id + "\">Edit</a> ";
 	result += "<a href=\"/remove?postid=" + post.id + "\">Remove</a>";
+	result += "<a href=\"/addblacklist?postid=" + post.id + "\">Blacklist Users</a>";
 	result += "</div>"
 	return result;
 }
