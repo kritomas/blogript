@@ -57,3 +57,14 @@ export async function removeUser(id)
 	const result = await pool.query("delete from User where id = ?;", [id]);
 	return result[0].affectedRows;
 }
+
+export async function createBlacklist(username, post_id, user_id)
+{
+	const result = await pool.query("insert into Blacklist (User_id, Post_id) select (select id from User where username = ?), (select id from Post where id = ? and User_id = ?);", [username, post_id, user_id]);
+	return result[0].affectedRows;
+}
+export async function removeBlacklist(username, post_id, user_id)
+{
+	const result = await pool.query("delete Blacklist from Blacklist inner join Post on Blacklist.Post_id = Post.id inner join User on User.id = Blacklist.User_id where Blacklist.Post_id = ? and User.username = ? and Post.User_id = ?;", [post_id, username, user_id]);
+	return result[0].affectedRows;
+}
