@@ -176,19 +176,22 @@ components:
         content:
           type: string
         creation_date:
-          type: date
+          type: string
+          description: date
     Posting:
       type: object
       properties:
         user_id:
-          type: UUID
+          type: string
+          description: UUID
         content:
           type: string
     BareUserID:
       type: object
       properties:
         user_id:
-          type: UUID
+          type: string
+          description: UUID
     Login:
       type: object
       properties:
@@ -204,4 +207,5 @@ components:
         post_id:
           type: integer
         user_id:
-          type: UUID
+          type: string
+          description: UUID
