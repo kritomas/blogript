@@ -11,7 +11,7 @@ create table Post
 	id integer primary key auto_increment,
 	User_id varchar(36) not null,
 	creation_date date not null default now(),
-	content varchar(4096) not null,
+	content varchar(16000) not null,
 	foreign key (User_id) references User(id)
 );
 
