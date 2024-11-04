@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
@@ -12,6 +13,7 @@ const docYaml = YAML.load("/var/blogript-api/openapi.yaml");
 const port = 42069;
 const api = express();
 
+api.use(cors())
 api.use(express.json());
 api.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
 api.use("/about", swaggerUi.serve, swaggerUi.setup(docYaml));
