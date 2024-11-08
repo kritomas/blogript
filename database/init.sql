@@ -20,6 +20,6 @@ create table Blacklist
 	id integer primary key auto_increment,
 	User_id varchar(36) not null,
 	Post_id integer not null,
-	foreign key (User_id) references User(id),
-	foreign key (Post_id) references Post(id)
+	foreign key (User_id) references User(id) on delete cascade,
+	foreign key (Post_id) references Post(id) on delete cascade
 );
