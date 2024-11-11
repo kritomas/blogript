@@ -12,7 +12,7 @@ async function parseById(id)
 {
 	try
 	{
-		const response = await fetch("/api/notes/" + id);
+		const response = await fetch("/api/blog/" + id);
 		if (!response.ok) throw response;
 		const data = await response.json();
 		result = "<div class=\"post-space\">";
@@ -35,7 +35,7 @@ async function parseAll()
 	}
 	try
 	{
-		const response = await fetch(url + "/api/notes/");
+		const response = await fetch(url + "/api/blog/");
 		if (!response.ok) throw response;
 		const data = await response.json();
 		result = "<div class=\"post-space\">";
