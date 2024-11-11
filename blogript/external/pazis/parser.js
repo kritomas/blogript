@@ -3,8 +3,8 @@ const url = "http://52.58.163.44";
 function parseByJson(post)
 {
 	result = "<div class=\"post\">";
-	result += "<p><b>" + post.title + "</b></p>";
-	result += "<p>" + post.contents + "</p>";
+	result += "<p><b>" + post.author + "</b> has posted at " + post.date + ":</p>";
+	result += "<p>" + post.content + "</p>";
 	result += "</div>"
 	return result;
 }
