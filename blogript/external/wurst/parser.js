@@ -3,8 +3,8 @@ const url = "http://3.66.188.13:8080";
 function parseByJson(post)
 {
 	result = "<div class=\"post\">";
-	result += "<p><b>" + post.title + "</b></p>";
-	result += "<p>" + post.contents + "</p>";
+	result += "<p><b>" + post.title + "</b> (" + post.created + ")</p>";
+	result += "<p>" + post.post + "</p>";
 	result += "</div>"
 	return result;
 }
